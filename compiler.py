@@ -1,3 +1,5 @@
+import re
+
 def formatFile(input):
     operators = set(['+', '-', '*', '/', '(', ')', '=', ",", ":"])
     
@@ -11,7 +13,11 @@ def formatFile(input):
 
     check_parentheses(lines)
     check_write_spelling(lines)
+
     for line in lines:
+
+        if "integer" in line:
+            parse_line(line)
 
         count += 1
   
@@ -100,6 +106,43 @@ def check_write_spelling(lines):
             if word == "write":
                 print(f"Error: Possible misspelling of 'write' at line {line_number}")
 
+
+def parse_line(line):
+    
+    variables = []
+    commas = []
+    word = ""
+
+    for l in line:
+
+        if l == ",":
+            commas.append(",")
+
+            if "," not in word:
+                if word.isspace() == False:
+                    variables.append(word)
+            word = ""
+            continue
+        
+        if l == ":" or l == ";":
+            continue
+        
+        if "integer" in word:
+            continue
+
+        word += l
+
+        if "integer" not in word and l.isspace():
+            if len(word)>=1 and word.isspace() == False:
+                variables.append(word)
+            word = ""
+            continue
+
+    if len(variables)-1 != len(commas):
+        print("Check commas by declarations.")
+        exit()
+
+        
 def check_parentheses(lines):
     stack = []
 

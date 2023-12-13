@@ -3,13 +3,14 @@ program f2023;
     of an expression*)
 var
     (*declares variables*)
-    a1, b2a,    c,ba :integer ;
+    aa, b2a,    c,ba :integer ;
 begin
     a1      = 3;
+     write(a1);  (*display c*)
     b2a =   4;
     c     = 5 ;
 
- write(c);  (*display c*)
+
 
     (*compute the value of the expression*)
     ba = a1 * (b2a +  2 * c)     ;
